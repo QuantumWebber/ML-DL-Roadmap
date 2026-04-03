@@ -13,7 +13,12 @@ const adminRouter = require('./routes/admin');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors({ origin: process.env.CLIENT_URL || '*' }));
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://ml-dl-roadmap.vercel.app'
+  ]
+}));
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 app.use('/api/topics', topicsRouter);
