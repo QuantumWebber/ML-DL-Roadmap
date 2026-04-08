@@ -12,12 +12,16 @@ export const useTopics = () => {
   useEffect(() => {
     const fetchTopics = async () => {
       try {
-        const res = await axios.get(`${API_URL}/topics`);
+        const res = await axios.get(`${API_URL}/topics`, {
+          timeout: 15000, // 15 second wait
+        });
         const topics = res.data.data;
 
         const grouped = fallbackPhases.map((phase) => ({
           ...phase,
-          topics: topics.filter((t) => t.phase === phase.id).sort((a, b) => a.order - b.order),
+          topics: topics
+            .filter((t) => t.phase === phase.id)
+            .sort((a, b) => a.order - b.order),
         }));
 
         const hasData = grouped.some((p) => p.topics.length > 0);
