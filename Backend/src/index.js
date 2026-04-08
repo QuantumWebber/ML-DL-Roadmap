@@ -18,7 +18,6 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'x-admin-password'],
 }));
-app.options('*', cors());
 
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
