@@ -13,18 +13,11 @@ const adminRouter = require('./routes/admin');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// CORS fix
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'https://ml-dl-roadmap.vercel.app',
-    process.env.CLIENT_URL,
-  ].filter(Boolean),
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'x-admin-password'],
-  credentials: true,
 }));
-
 
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
@@ -33,7 +26,6 @@ app.use('/api/admin', adminRouter);
 
 app.get('/', (req, res) => res.json({ message: 'ML Portfolio API running 🚀' }));
 
-// Keep alive — Render free tier sleep fix
 const BACKEND_URL = process.env.RENDER_EXTERNAL_URL;
 if (BACKEND_URL) {
   setInterval(() => {
